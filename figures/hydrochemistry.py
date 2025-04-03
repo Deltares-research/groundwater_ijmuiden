@@ -1,27 +1,29 @@
-import matplotlib.pyplot as plt
-
-plt.rcParams["font.family"] = "Calibri"
-import pandas as pd
-import numpy as np
-import seaborn as sns
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
 from mendeleev import element
 
-basedir = Path(r"N:/Projects/11207500/11207510/B. Measurements and calculations")
+plt.rcParams["font.family"] = "Calibri"
 
-metadata = pd.read_excel(
-    basedir.joinpath(r"01_metadata/peilbuizen_metadata.xlsx")
-).set_index("Peilbuis")
+basedir = Path(r"N:/Projects/11207500/11207510/B. Measurements and calculations")
+path_metadata = basedir / "01_metadata/peilbuizen_metadata.xlsx"
+path_bemonstering = basedir / "05_waterkwaliteitmonsters/bemonstering_10-08-2022.xlsx"
+
+
+metadata = pd.read_excel(path_metadata).set_index("Peilbuis")
+df = pd.read_excel(path_bemonstering).set_index("Peilbuis")
+
 depth_nap = metadata["Top_PB (m NAP)"] - metadata["Diepte_PB (m-top_pb)"]
-df = pd.read_excel(
-    basedir.joinpath(r"05_waterkwaliteitmonsters/bemonstering_10-08-2022.xlsx")
-).set_index("Peilbuis")
+
 df = df.iloc[1:]
 df = df.replace("n.a.", np.nan)
 df.columns = df.columns.str.replace("\n \n", "")
 df.columns = df.columns.str.replace("\n", "")
 df = df.join(depth_nap.to_frame("Diepte filter (m NAP)"))
-# df = df.iloc[:,16:]
+
 # # Assuming 'correlation_matrix' is your correlation matrix dataframe
 fig, ax = plt.subplots(1, 1, figsize=(15, 15), dpi=400, sharex=True)
 correlation_matrix = df.corr()
@@ -29,6 +31,7 @@ sns.heatmap(correlation_matrix, annot=False, cmap="RdYlGn", ax=ax)
 plt.title("Correlation Matrix")
 plt.show()
 
+# %% convert to meq/l
 df["Chloride_meq"] = df["Chloride"] * 1 / element("Cl").atomic_weight  # mEq/l
 df["Sodium_meq"] = df["Sodium"] * 1 / element("Na").atomic_weight
 df["Calcium_meq"] = df["Calcium"] * 2 / element("Ca").atomic_weight

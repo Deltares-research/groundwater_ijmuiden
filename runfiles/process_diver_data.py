@@ -1,16 +1,19 @@
 # %%
+from pathlib import Path
+
 import pandas as pd
 
 import groundwater_ijmuiden as gij
-from pathlib import Path
-from helper_functions import rename_well
+from runfiles.rename import rename_well
 
 project_dir = Path(r"N:/Projects/11207500/11207510/B. Measurements and calculations")
 measurements_dir = project_dir / "02_handmetingen"
 diver_dir = project_dir / "03_divers"
 output_dir = diver_dir / "zoetwaterstijghoogte"
-path_metadata = project_dir / "01_metadata", "peilbuizen_metadata.xlsx"
 
+path_metadata = project_dir / "01_metadata", "peilbuizen_metadata.xlsx"
+path_baro = diver_dir / "diverdata/KNMI 240 Schiphol.csv"
+path_gw_measurements = diver_dir / "Manual Measurements-IJmuiden.csv"
 
 metadata = pd.read_excel(path_metadata, index_col=0)
 # % open ec field measurements
@@ -26,20 +29,16 @@ campaign_dates = [
 ]
 ec_measurements = pd.DataFrame()
 for date in campaign_dates:
-    path = measurements_dir.joinpath(f"handmetingen_{date}.csv")
+    path = measurements_dir / f"handmetingen_{date}.csv"
 
-    df = gij.readers.read_ec_measurement(path)
+    df = gij.read_ec_measurement(path)
     date = pd.to_datetime(date, format="%d%m%Y")
 
     ec_measurements[date] = df
 
 # % open groundwater hand measurements
-path_gw_measurements = diver_dir.joinpath(f"Manual Measurements-IJmuiden.csv")
 gw_measurements = gij.read_gw_measurements(path_gw_measurements)
 gw_measurements.index = [rename_well(name) for name in gw_measurements.index.tolist()]
-
-# % open project baro
-path_baro = diver_dir.joinpath("diverdata", "KNMI 240 Schiphol.csv")
 project_baro = gij.read_barometer(path_baro)
 
 # %%

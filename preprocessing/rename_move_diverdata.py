@@ -1,7 +1,7 @@
-# %%
-import glob
+# this script is used to move diverdata files from the DiverOffice folder to the project folder
+# and to rename the files according to the naming convention used in the project folder.
+
 import shutil
-import pandas as pd
 from pathlib import Path
 
 
@@ -42,24 +42,23 @@ def rename(old: str):
     return newname + ".csv"
 
 
+dir_diver_office = Path(r"C:/Users/melman/AppData/Roaming/DiverOffice/IJmuiden/CSV")
+project_dir = Path(
+    r"N:/Projects/11207500/11207510/B. Measurements and calculations/03_divers/diverdata"
+)
+
 failed = []
-for oldpath in glob.glob(
-    r"C:\Users\melman\AppData\Roaming\DiverOffice\IJmuiden\CSV\*.csv"
-):
+for old_path in dir_diver_office.glob("*.csv"):
+    print(old_path)
+
     try:
-        oldname = Path(oldpath).stem
-        newname = rename(oldname)
-        newpath = Path(
-            r"N:/Projects/11207500/11207510/B. Measurements and calculations/03_divers/diverdata"
-        ).joinpath(newname)
-        print(oldname, newname)
-        shutil.move(oldpath, newpath)
+        old_name = old_path.stem
+        new_name = rename(old_name)
+        new_path = project_dir / new_name
+
+        print(old_name, new_name)
+        shutil.move(old_path, new_path)
     except (KeyError, OSError, shutil.Error):
-        failed.append(oldname)
+        failed.append(old_name)
 
 print(failed)
-
-# merge BL04-2 handmatig!!!
-
-
-# %%

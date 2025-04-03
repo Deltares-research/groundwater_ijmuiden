@@ -1,8 +1,8 @@
-import pandas as pd
+from pathlib import Path
 
 import chardet
 import numpy as np
-from pathlib import Path
+import pandas as pd
 
 
 def read_diver(path: str | Path) -> pd.DataFrame:

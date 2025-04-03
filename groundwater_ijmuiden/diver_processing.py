@@ -129,9 +129,9 @@ class MonitoringWell:
         """
 
         self.ec_measurements = df
-        self.calculate_water_density()
+        self._calculate_water_density()
 
-    def calculate_water_density(self):
+    def _calculate_water_density(self):
         """
         Calculates the water density based on electrical conductivity (EC) measurements
         and associated temperature data, then stores the results in the "water_density" attribute.
