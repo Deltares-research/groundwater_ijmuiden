@@ -11,7 +11,7 @@ measurements_dir = project_dir / "02_handmetingen"
 diver_dir = project_dir / "03_divers"
 output_dir = diver_dir / "zoetwaterstijghoogte"
 
-path_metadata = project_dir / "01_metadata", "peilbuizen_metadata.xlsx"
+path_metadata = project_dir / "01_metadata/peilbuizen_metadata.xlsx"
 path_baro = diver_dir / "diverdata/KNMI 240 Schiphol.csv"
 path_gw_measurements = diver_dir / "Manual Measurements-IJmuiden.csv"
 
@@ -44,9 +44,9 @@ project_baro = gij.read_barometer(path_baro)
 # %%
 start_date = "20-05-2022"
 end_date = "05-12-2024"
-386
+
 well_ids = metadata.index.to_list()
-well_ids = ["BL-01_2"]
+# well_ids = ["BL-01_2"]
 for well_id in well_ids:
     print(well_id)
 
@@ -151,11 +151,11 @@ for well_id in well_ids:
     if well_id == "RWS-04-3_1":
         monitoring_well.drop_data(before="13-9-2022")
 
+    path_fig = rf"n:\Projects\11207500\11207510\C. Report - advise\figuren\tijdreeksen_december_2024\{well_id}.png"
     fig = gij.plot_groundwater(monitoring_well, freq="h")
-    fig.savefig(
-        rf"n:\Projects\11207500\11207510\C. Report - advise\figuren\tijdreeksen_december_2024\{well_id}.png"
-    )
+    fig.savefig(path_fig)
 
-    monitoring_well.export_fresh_water_head(output_dir.joinpath(f"{well_id}.csv"))
+    path_csv = output_dir / f"{well_id}.csv"
+    monitoring_well.export_fresh_water_head(path_csv)
 
 # %%

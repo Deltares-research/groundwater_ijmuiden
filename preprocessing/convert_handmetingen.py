@@ -1,4 +1,4 @@
-## this script can be use to convert han measurment data from field-excel, to csv that is compatible with the webviewer.
+## this script can be use to convert hand measurment data from field-excel, to csv that is compatible with the webviewer.
 from pathlib import Path
 
 import pandas as pd
@@ -20,7 +20,7 @@ projectdir = Path(r"N:/Projects/11207500/11207510")
 for date in dates:
     path_excel = (
         projectdir
-        / f"F. Other information/meetcampagnes/ruwe_data_campagnes_meetcampagne_{date}.xlsx"
+        / f"F. Other information/meetcampagnes/ruwe_data_campagnes/meetcampagne_{date}.xlsx"
     )
     path_csv = (
         projectdir

@@ -18,12 +18,12 @@ projectdir = Path(
     r"n:\Projects\11207500\11207510\B. Measurements and calculations\04_boorgatmetingen\data_03122024"
 )
 
-path_a_2024 = projectdir / "20241203_Ijmuiden_A", "A_CNT_1186slim1_2.asc"
-path_b_2024 = projectdir / "20241203_Ijmuiden_B", "B_CNT_1186slim1_2.asc"
-path_bl02_2024 = projectdir / "20241203_Ijmuiden_BL-02", "BL-02_CNT_1186slim1_2.asc"
-path_e_2024 = projectdir / "20241203_Ijmuiden_E_2", "E_2_CNT_1186slim1_2.asc"
-path_d_2024 = projectdir / "20241203_Ijmuiden_D", "D_CNT_1186slim1_2.asc"
-path_c_2024 = projectdir / "20241203_Ijmuiden_C", "C_CNT_1186slim1_2.asc"
+path_a_2024 = projectdir / "20241203_Ijmuiden_A/A_CNT_1186slim1_2.asc"
+path_b_2024 = projectdir / "20241203_Ijmuiden_B/B_CNT_1186slim1_2.asc"
+path_bl02_2024 = projectdir / "20241203_Ijmuiden_BL-02/BL-02_CNT_1186slim1_2.asc"
+path_e_2024 = projectdir / "20241203_Ijmuiden_E_2/E_2_CNT_1186slim1_2.asc"
+path_d_2024 = projectdir / "20241203_Ijmuiden_D/D_CNT_1186slim1_2.asc"
+path_c_2024 = projectdir / "20241203_Ijmuiden_C/C_CNT_1186slim1_2.asc"
 
 borelog_a = open_borelog(path_a_2024, correct_depth=-0.39)
 borelog_a.to_csv(

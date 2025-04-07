@@ -20,8 +20,11 @@ The collected data includes:
 This environment provides tools to process and visualize the collected data. The following subfolders are included:
 
 - **`preprocessing`**: Scripts for preprocessing data (not part of the official Python package).
-- **`groundwater_ijmuiden`**: Core package scripts for processing diver data, which can be used in runfiles.
-- **`runfiles`**: Scripts that utilize the package to process the data.
+- **`groundwater_ijmuiden`**: Core package scripts for processing diver data, which can be used in runfiles. Don't use the files in the folder directly.
+- **`runfiles`**: Scripts that uses the `groundwater_ijmuiden` package to process diver data. The most important script is `process_diver_data.py`, which performs the following tasks:
+    - Applies barometric compensation to raw diver data.
+    - Converts the compensated data to freshwater head.
+    - Exports the results as figures and CSV files for further analysis.
 - **`figures`**: Plotting scripts for data visualization (not part of the official Python package).
 
 ### `groundwater_ijmuiden`

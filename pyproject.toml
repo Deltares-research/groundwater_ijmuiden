@@ -31,6 +31,7 @@ geopandas = ">=1.0.1,<2"
 shapely = ">=2.0.6,<3"
 black = "*"
 ruff = "*"
+contextily = ">=1.6.2,<2"
 
 [tool.black]
 line-length = 88
